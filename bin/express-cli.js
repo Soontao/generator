@@ -450,9 +450,8 @@ function main () {
 
   // Default view engine
   if (program.view === undefined) {
-    warning('the default view engine will not be jade in future releases\n' +
-      "use `--view=jade' or `--help' for additional options")
-    program.view = 'jade'
+    warning('use default view hbs')
+    program.view = 'hbs'
   }
 
   // Generate application
