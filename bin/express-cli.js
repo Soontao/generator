@@ -267,12 +267,17 @@ function createApplication (name, path) {
     // package.json
     var pkg = {
       name: name,
-      version: '0.0.0',
+      version: '1.0.0',
       private: true,
       scripts: {
-        start: 'node ./bin/www'
+        start: 'node -r @std/esm ./bin/www'
+      },
+      '@std/esm': {
+        'esm': 'js',
+        'cjs': true
       },
       dependencies: {
+        '@std/esm': '0.7.1',
         'body-parser': '~1.17.1',
         'cookie-parser': '~1.4.3',
         'debug': '~2.6.3',
