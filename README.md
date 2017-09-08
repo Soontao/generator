@@ -12,10 +12,10 @@ npm install -g https://github.com/Soontao/generator
 
 The quickest way to get started with express is to utilize the executable `express(1)` to generate an application as shown below:
 
-Create the app:
+Create the app named 'WebApp' :
 
 ```bash
-express --view=hbs /tmp/foo && cd /tmp/foo
+express WebApp && cd WebApp
 ```
 
 Install dependencies:
@@ -29,6 +29,12 @@ Start your Express.js app at `http://localhost:3000/`:
 ```bash
 npm start
 ```
+
+## Warning
+
+The generated proj will based on `@std/esm` module, the module will support *import/export* for nodejs
+
+Please don't change `bin/www` file. It inlclude `@std/ems` for import modules.
 
 ## Command Line Options
 

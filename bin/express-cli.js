@@ -270,7 +270,7 @@ function createApplication (name, path) {
       version: '1.0.0',
       private: true,
       scripts: {
-        start: 'node -r @std/esm ./bin/www'
+        start: 'node ./bin/www'
       },
       '@std/esm': {
         'esm': 'js',
