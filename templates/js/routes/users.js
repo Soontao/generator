@@ -1,9 +1,14 @@
-import express from "express"
+import { Router, RequestHandler } from "express"
 
-var router = express.Router();
+var router = Router();
 
-router.get('/', function(req, res, next) {
+/**
+ * @type {RequestHandler}
+ */
+var getUser = function (req, res, next) {
   res.send('respond with a resource');
-});
+}
+
+router.get('/', getUser);
 
 export default router;

@@ -1,8 +1,8 @@
-import express from "express"
+import { Router } from "express"
 
-var router = express.Router();
+var router = Router();
 
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' });
 });
 

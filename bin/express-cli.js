@@ -65,7 +65,7 @@ if (!exit.exited) {
  * Install an around function; AOP.
  */
 
-function around (obj, method, fn) {
+function around(obj, method, fn) {
   var old = obj[method]
 
   obj[method] = function () {
@@ -79,7 +79,7 @@ function around (obj, method, fn) {
  * Install a before function; AOP.
  */
 
-function before (obj, method, fn) {
+function before(obj, method, fn) {
   var old = obj[method]
 
   obj[method] = function () {
@@ -92,7 +92,7 @@ function before (obj, method, fn) {
  * Prompt for confirmation on STDOUT/STDIN
  */
 
-function confirm (msg, callback) {
+function confirm(msg, callback) {
   var rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
@@ -108,7 +108,7 @@ function confirm (msg, callback) {
  * Copy file from template directory.
  */
 
-function copyTemplate (from, to) {
+function copyTemplate(from, to) {
   from = path.join(__dirname, '..', 'templates', from)
   write(to, fs.readFileSync(from, 'utf-8'))
 }
@@ -119,11 +119,11 @@ function copyTemplate (from, to) {
  * @param {String} path
  */
 
-function createApplication (name, path) {
+function createApplication(name, path) {
   var wait = 5
 
   console.log()
-  function complete () {
+  function complete() {
     if (--wait) return
     var prompt = launchedFromCmd() ? '>' : '$'
 
@@ -267,23 +267,26 @@ function createApplication (name, path) {
     // package.json
     var pkg = {
       name: name,
-      version: '1.0.0',
-      private: true,
-      scripts: {
-        start: 'node ./bin/www'
+      "version": "1.0.0",
+      "private": true,
+      "scripts": {
+        "start": "node ./bin/www"
       },
-      '@std/esm': {
-        'esm': 'js',
-        'cjs': true
+      "babel": {
+        "presets": [
+          "env"
+        ]
       },
-      dependencies: {
-        '@std/esm': '0.7.1',
-        'body-parser': '~1.17.1',
-        'cookie-parser': '~1.4.3',
-        'debug': '~2.6.3',
-        'express': '~4.15.2',
-        'morgan': '~1.8.1',
-        'serve-favicon': '~2.4.2'
+      "dependencies": {
+        "babel-preset-env": "^1.6.1",
+        "babel-register": "^6.26.0",
+        "body-parser": "~1.17.1",
+        "cookie-parser": "~1.4.3",
+        "debug": "~2.6.3",
+        "express": "~4.15.2",
+        "hbs": "~4.0.1",
+        "morgan": "~1.8.1",
+        "serve-favicon": "~2.4.2"
       }
     }
 
@@ -341,9 +344,8 @@ function createApplication (name, path) {
       complete()
     })
 
-    if (program.git) {
-      copyTemplate('js/gitignore', path + '/.gitignore')
-    }
+    copyTemplate('js/handlers.js', path + "/handlers.js")
+    copyTemplate('js/gitignore', path + '/.gitignore')
 
     complete()
   })
@@ -355,7 +357,7 @@ function createApplication (name, path) {
  * @param {String} pathName
  */
 
-function createAppName (pathName) {
+function createAppName(pathName) {
   return path.basename(pathName)
     .replace(/[^A-Za-z0-9.()!~*'-]+/g, '-')
     .replace(/^[-_.]+|-+$/g, '')
@@ -369,7 +371,7 @@ function createAppName (pathName) {
  * @param {Function} fn
  */
 
-function emptyDirectory (path, fn) {
+function emptyDirectory(path, fn) {
   fs.readdir(path, function (err, files) {
     if (err && err.code !== 'ENOENT') throw err
     fn(!files || !files.length)
@@ -380,11 +382,11 @@ function emptyDirectory (path, fn) {
  * Graceful exit for async STDIO
  */
 
-function exit (code) {
+function exit(code) {
   // flush output for Node.js Windows pipe bug
   // https://github.com/joyent/node/issues/6247 is just one bug example
   // https://github.com/visionmedia/mocha/issues/333 has a good discussion
-  function done () {
+  function done() {
     if (!(draining--)) _exit(code)
   }
 
@@ -406,7 +408,7 @@ function exit (code) {
  * Determine if launched from cmd.exe
  */
 
-function launchedFromCmd () {
+function launchedFromCmd() {
   return process.platform === 'win32' &&
     process.env._ === undefined
 }
@@ -415,11 +417,11 @@ function launchedFromCmd () {
  * Load template file.
  */
 
-function loadTemplate (name) {
+function loadTemplate(name) {
   var contents = fs.readFileSync(path.join(__dirname, '..', 'templates', (name + '.ejs')), 'utf-8')
   var locals = Object.create(null)
 
-  function render () {
+  function render() {
     return ejs.render(contents, locals)
   }
 
@@ -433,7 +435,7 @@ function loadTemplate (name) {
  * Main program.
  */
 
-function main () {
+function main() {
   // Path
   var destinationPath = program.args.shift() || '.'
 
@@ -479,7 +481,7 @@ function main () {
  * @param {Function} fn
  */
 
-function mkdir (path, fn) {
+function mkdir(path, fn) {
   mkdirp(path, MODE_0755, function (err) {
     if (err) throw err
     console.log('   \x1b[36mcreate\x1b[0m : ' + path)
@@ -494,7 +496,7 @@ function mkdir (path, fn) {
  * @param {String} newName
  */
 
-function renamedOption (originalName, newName) {
+function renamedOption(originalName, newName) {
   return function (val) {
     warning(util.format("option `%s' has been renamed to `%s'", originalName, newName))
     return val
@@ -507,7 +509,7 @@ function renamedOption (originalName, newName) {
  * @param {String} message
  */
 
-function warning (message) {
+function warning(message) {
   console.error()
   message.split('\n').forEach(function (line) {
     console.error('  warning: %s', line)
@@ -522,7 +524,7 @@ function warning (message) {
  * @param {String} str
  */
 
-function write (path, str, mode) {
+function write(path, str, mode) {
   fs.writeFileSync(path, str, { mode: mode || MODE_0666 })
   console.log('   \x1b[36mcreate\x1b[0m : ' + path)
 }
