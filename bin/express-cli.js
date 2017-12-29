@@ -278,6 +278,7 @@ function createApplication(name, path) {
         ]
       },
       "dependencies": {
+        "babel-polyfill": "^6.26.0",
         "babel-preset-env": "^1.6.1",
         "babel-register": "^6.26.0",
         "body-parser": "~1.17.1",
