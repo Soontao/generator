@@ -1,6 +1,6 @@
 # Express Generator Fork
 
-> Forked express generator, default view engine is hbs, and with es6 native support
+> Forked express generator, default view engine is hbs, and with es6 support powered by babel.js
 
 ## Installation
 
@@ -10,7 +10,7 @@ npm install -g https://github.com/Soontao/generator
 
 ## Quick Start
 
-The quickest way to get started with express is to utilize the executable `express(1)` to generate an application as shown below:
+The quickest way to get started with express is to utilize the executable `express` to generate an application as shown below:
 
 Create the app named 'WebApp' :
 
